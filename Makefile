@@ -14,6 +14,7 @@ RELEASE		:= $(NAME)-$(VERSION).tar.gz
 
 APPDIR		:= $(NAME)-$(VERSION)
 BEAMS		:= $(SRC:src/%.erl=ebin/%.beam) 
+ERLANGDIR	:= /usr/local/lib/erlang/lib/
 
 compile: $(BEAMS)
 
@@ -21,6 +22,9 @@ app: compile
 	@mkdir -p $(APPDIR)/ebin
 	@cp -r ebin/* $(APPDIR)/ebin/
 	@cp -r include $(APPDIR)
+
+install: app
+	@cp -r $(APPDIR) $(ERLANGDIR)
 
 release: app
 	@tar czvf $(RELEASE) $(APPDIR)
